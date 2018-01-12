@@ -1,6 +1,19 @@
 #!/bin/bash
+#
+# Run this script two ways:
 
-for texfile in `/bin/ls -1 *.tex | /usr/bin/grep -v template`; do
+
+
+if [[ -n "$1" ]]; then
+    texfiles="`/bin/ls -1 $1.tex | /usr/bin/grep -v template`"
+else
+    texfiles="`/bin/ls -1 *.tex | /usr/bin/grep -v template`"
+fi
+
+echo $texfiles
+
+for texfile in $texfiles; do
+
     # Procedure:
     # - turn plain latex into templated latex
     # - pdflatex: latex to pdf
@@ -9,8 +22,10 @@ for texfile in `/bin/ls -1 *.tex | /usr/bin/grep -v template`; do
     tmpfile="`echo $texfile | sed 's/.tex/_tmp.tex/g'`"
     jpgfile="`echo $texfile | sed 's/.tex/.jpg/g'`"
     pdffile="`echo $texfile | sed 's/.tex/_tmp.pdf/g'`"
+    auxfile="`echo $texfile | sed 's/.tex/_tmp.aux/g'`"
+    logfile="`echo $texfile | sed 's/.tex/_tmp.log/g'`"
 
-	echo "Processing $texfile"
+    echo "Processing $texfile"
 
     cp template.tex $tmpfile
     sed -i "s/FILENAME/$texfile/g" $tmpfile 
@@ -18,8 +33,9 @@ for texfile in `/bin/ls -1 *.tex | /usr/bin/grep -v template`; do
     # latex to pdf
     pdflatex \
         -interaction nonstopmode \
+        -halt-on-error \
         $tmpfile $pdffile \
-        && rm -f *.aux *.log
+        && rm -f $auxfile $logfile
 
     # pdf to image
     convert            \

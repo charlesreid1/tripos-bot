@@ -1,8 +1,129 @@
 \documentclass[]{article}
 \usepackage{blindtext}
+\usepackage{amsmath}
 \usepackage[active, tightpage]{preview}
 \setlength\PreviewBorder{10pt}%
 \pagenumbering{gobble}
+
+\newcommand{\btw}{\mathbin{)\kern-5pt(}}
+\newcommand{\dd}{\partial}
+\newcommand{\tsum}{{\textstyle\sum}}
+\newcommand{\ds}{\displaystyle}
+\renewcommand{\leq}{\leqq}
+\renewcommand{\geq}{\geqq}
+\renewcommand{\limsup}{\varlimsup}
+\renewcommand{\liminf}{\varliminf}
+
+%% Named operators
+\DeclareMathOperator{\ArcCos}{arc\,cos}
+\DeclareMathOperator{\ArcCosec}{arc\,cosec}
+\DeclareMathOperator{\ArcCot}{arc\,cot}
+\DeclareMathOperator{\ArcSec}{arc\,sec}
+\DeclareMathOperator{\ArcSin}{arc\,sin}
+\DeclareMathOperator{\ArcTan}{arc\,tan}
+\DeclareMathOperator{\cosec}{cosec}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\cosech}{cosech}
+
+\DeclareMathOperator{\argcosh}{arg\,cosh}
+\DeclareMathOperator{\argcoth}{arg\,coth}
+\DeclareMathOperator{\argsinh}{arg\,sinh}
+\DeclareMathOperator{\argtanh}{arg\,tanh}
+
+\newcommand{\arccosec}{\ArcCosec}
+\newcommand{\arccot}{\ArcCot}
+\newcommand{\arcsec}{\ArcSec}
+
+\renewcommand{\arccos}{\ArcCos}
+\renewcommand{\arcsin}{\ArcSin}
+\renewcommand{\arctan}{\ArcTan}
+
+\DeclareMathOperator{\Cis}{Cis}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\sgn}{\textit{sgn}\,}
+\DeclareMathOperator{\am}{am}
+
+\DeclareMathOperator{\Real}{\mathbf{R}}
+\DeclareMathOperator{\Imag}{\mathbf{I}}
+\renewcommand{\Re}{\Real}
+\renewcommand{\Im}{\Imag}
+
+%%% % Handle degree symbols and centered dots as Latin-1 characters
+%%% \DeclareInputText{176}{\ifmmode{{}^\circ}\else\textdegree\fi}
+%%% \DeclareInputText{183}{\ifmmode\cdot\else\textperiodcentered\fi}
+
+% Local spacing coercion
+\newcommand{\Loosen}{\spaceskip 0.375em plus 0.75em minus 0.25em}
+% Used only once, to coax a wide display into the text block
+\newcommand{\Squeeze}[2][0.98]{\scalebox{#1}[1]{#2}}
+
+% Allow \quad to compress a bit
+\let\oldquad=\quad
+\renewcommand{\quad}{\oldquad\hspace{0pt minus 3pt}}
+
+\newcommand{\Medskip}{\vspace{0pt plus 0.5\baselineskip}}
+
+%% Parametrized vertical space %%
+\newcommand{\Strut}[1][12pt]{\rule{0pt}{#1}}
+
+%%%% Corrections and in-line transcriber's notes %%%%
+% In-line notes
+\newcommand{\DPnote}[1]{}
+% Errors
+\newcommand{\DPtypo}[2]{#2}
+
+%%%% Notational modernizations %%%%
+% ** If \epsilon -> \varepsilon, figures p117 and p176 must be recompiled
+
+
+
+% Modernize TRUE
+% Stylistic changes made for clarity or consistency
+  \newcommand{\DPchg}[2]{#2}
+  \newcommand{\Add}[1]{#1}
+
+% Modernize notation
+  \newcommand{\DPmod}[2]{#2}
+
+% ** Incarnations of \sqrt; see below for significance
+  \newcommand{\sqrtp}[2][\ ]{\sqrt[#1]{#2}}
+  \newcommand{\sqrtb}[2][\ ]{\sqrt[#1]{#2}}
+  \newcommand{\sqrtbr}[2][\ ]{\sqrt[#1]{#2}}
+  \newcommand{\bigsqrt}[2][\ ]{\sqrt[#1]{#2}}
+  \newcommand{\bigsqrtb}[2][\ ]{\sqrt[#1]{#2}}
+  \newcommand{\bigsqrtp}[2][\ ]{\sqrt[#1]{#2}}
+
+% Exchange delta, epsilon in the definition of limits
+  \newcommand{\DELTA}{\epsilon}
+  \newcommand{\EPSILON}{\delta}
+
+% Add visual delimiters to large integers/long decimals
+  \newcommand{\MC}{,}%  "Math comma"
+  \newcommand{\MS}{\,}% "Math space"
+
+
+%%% 
+%%% % Modernize FALSE
+%%%   \newcommand{\DPchg}[2]{#1}
+%%%   \newcommand{\Add}[1]{}
+%%%   \newcommand{\DPmod}[2]{#1}
+%%%   % Use surd sign...
+%%%   \let\oldsqrt=\sqrt%
+%%%   \renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{\vphantom{|}}#2}
+%%%   % ... with parentheses or curly braces around radicand
+%%%   \newcommand{\sqrtp}[2][\ ]{\sqrt[#1]{(#2)}}
+%%%   \newcommand{\sqrtb}[2][\ ]{\sqrt[#1]{\{#2\}}}
+%%%   \newcommand{\sqrtbr}[2][\ ]{\sqrt[#1]{\,[#2]}}
+%%%   \newcommand{\bigsqrt}[2][\ ]{\oldsqrt[#1]{\vphantom{#2}}#2}
+%%%   \newcommand{\bigsqrtb}[2][\ ]{\oldsqrt[#1]{\vphantom{\bigg|}}\left\{#2\right\}}
+%%%   \newcommand{\bigsqrtp}[2][\ ]{\oldsqrt[#1]{\vphantom{#2}}\!\!\left(#2\right)}
+%%% 
+%%%   \newcommand{\DELTA}{\delta}
+%%%   \newcommand{\EPSILON}{\epsilon}
+%%% % Don't add visual delimiters to large integers/long decimals
+%%%   \newcommand{\MC}{}
+%%%   \newcommand{\MS}{}
+
 
 \newcommand{\MathTrip}[1]{%
   \pagebreak[0]%
