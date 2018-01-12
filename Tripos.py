@@ -9,11 +9,14 @@ def setup():
     k = rmm.SimpleListKeymaker()
     k.make_keys([0],'keys/')
 
-### def run():
-###     sh = rmm.Shepherd('keys/',sheep_class=rmm.MediaSheep)
-### 
-###     sh.perform_action('
-###     #sh.perform_action('tweet',{'publish':False})
+def run():
+    sh = rmm.Shepherd('keys/',sheep_class=PhotoADaySheep)
+
+    sh.perform_action('photo_a_day',{
+                        'publish':False,
+                        'images_dir':'latex'
+                    })
+
 ###     #sh.perform_pool_action('tweet',{
 ###     #        'publish' : True,
 ###     #        'inner_sleep' : 3*60,
@@ -24,5 +27,5 @@ if __name__=="__main__":
 
     setup()
 
-    ###run()
+    #run()
 
