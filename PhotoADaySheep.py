@@ -4,7 +4,7 @@ import glob
 import time
 from datetime import datetime
 
-class PhotoADaySheep(rmm.Sheep):
+class PhotoADaySheep(rmm.MediaSheep):
     """
     This sheep will tweet a photo a day.
 
@@ -103,7 +103,7 @@ class PhotoADaySheep(rmm.Sheep):
                 now = datetime.now()
                 yy, mm, dd, hh, mm = (now.year, now.month, now.day, now.hour, now.minute)
 
-                if(abs(dd-prior_dd)>0 and hh>8):
+                if( abs(dd-prior_dd)>0 and hh<8 ):
 
                     # Index = days since beginning of year
                     index = (datetime.now() - datetime(yy,1,1,0,0,0)).days
@@ -121,7 +121,8 @@ class PhotoADaySheep(rmm.Sheep):
                             img_info = self.upload_image_to_twitter(tweet_params)
 
                         if(tweet_params['upload'] and tweet_params['publish']):
-                            _tweet(img_info)
+                            import pdb; pdb.set_trace()
+                            self._tweet(img_info)
                         else:
                             self._print("Testing image tweet: %s"%(tweet_params['image_file']))
 
