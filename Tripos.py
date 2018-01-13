@@ -17,15 +17,9 @@ def run():
                         'images_dir':'latex'
                     })
 
-###     #sh.perform_pool_action('tweet',{
-###     #        'publish' : True,
-###     #        'inner_sleep' : 3*60,
-###     #        'outer_sleep' : 2*3600
-###     #    })
-
 if __name__=="__main__":
 
-    setup()
+    #setup()
 
-    #run()
+    run()
 
