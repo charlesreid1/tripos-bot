@@ -1,4 +1,5 @@
 import rainbowmindmachine as rmm
+import twitter
 import logging
 import glob
 import time
@@ -103,7 +104,10 @@ class PhotoADaySheep(rmm.MediaSheep):
                 now = datetime.now()
                 yy, mm, dd, hh, mm = (now.year, now.month, now.day, now.hour, now.minute)
 
-                if( abs(dd-prior_dd)>0 and hh<8 ):
+                # offset for server +8 london time
+                offset = 8
+
+                if( abs(dd-prior_dd)>0 and hh>(8 + offset)):
 
                     # Index = days since beginning of year
                     index = (datetime.now() - datetime(yy,1,1,0,0,0)).days
@@ -121,15 +125,18 @@ class PhotoADaySheep(rmm.MediaSheep):
                             img_info = self.upload_image_to_twitter(tweet_params)
 
                         if(tweet_params['upload'] and tweet_params['publish']):
-                            import pdb; pdb.set_trace()
-                            self._tweet(img_info)
+                            twit = {
+                                        'status': 'Your daily Mathematical Tripos question.',
+                                        'media_ids': img_info['media_id_string']
+                                    }
+                            self._tweet(twit)
                         else:
                             self._print("Testing image tweet: %s"%(tweet_params['image_file']))
 
                     # Update prior_dd
                     prior_dd = dd
 
-                msg = self.timestamp_message("Boink. Still fully operational.")
+                msg = self.timestamp_message("Sleeping...")
                 logging.info(msg)
 
                 time.sleep(remcycle)
@@ -156,4 +163,32 @@ class PhotoADaySheep(rmm.MediaSheep):
 
             except AssertionError:
                 raise Exception("Error: tweet queue was empty. Check your populate_queue() method definition.")
+
+
+
+    def _tweet(self,twit):
+
+        try:
+            # tweet:
+            stats = self.t.statuses.update(
+                    status = twit['status'],
+                    media_ids = twit['media_ids']
+                    )
+
+            msg = self.timestamp_message(">>> Tweet was successful")
+
+        except twitter.TwitterError as e:
+            
+            if e.message[0]['code'] == 185:
+                msg = self.timestamp_message("Twitter error: Daily message limit reached")
+                logging.info(msg)
+
+            elif e.message[0]['code'] == 187:
+                msg = self.timestamp_message("Twitter error: Duplicate error")
+                logging.info(msg)
+            
+            else:
+                msg = self.timestamp_message("Twitter error: "+e.message)
+                logging.info(msg)
+
 
