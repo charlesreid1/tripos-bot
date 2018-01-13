@@ -1,6 +1,7 @@
 import rainbowmindmachine as rmm
 import logging
 import glob
+import time
 from datetime import datetime
 
 class PhotoADaySheep(rmm.Sheep):
@@ -22,9 +23,25 @@ class PhotoADaySheep(rmm.Sheep):
 
     Collective actions:
     
-        image_a_day: tweet an image a day
+        photo_a_day: tweet an image a day
     """
-    def populate_queue(self):
+    def perform_action(self,action,params):
+        """
+        Performs action indicated by string (action),
+        passing a dictionary of parameters (params)
+
+        Actions:
+
+            photo_a_day: tweet an image a day
+        """
+        rmm.Sheep.perform_action(self,action,params)
+
+        if action=='photo_a_day':
+            self.photo_a_day(params)
+
+
+
+    def populate_queue(self,params):
         """
         Load parameters and prepare the tweet queue.
 
@@ -39,25 +56,10 @@ class PhotoADaySheep(rmm.Sheep):
         #   { "1" : "001.png",
         # seems wasteful.
         # Cut to the chase with glob.
-        return glob.glob(self.params['images_dir']+"/*.jpg")
+        return glob.glob(params['images_dir']+"/*.jpg")
 
 
-    def perform_action(self,action,params):
-        """
-        Performs action indicated by string (action),
-        passing a dictionary of parameters (params)
-
-        Actions:
-
-            image_a_day: tweet an image a day
-        """
-        rmm.Sheep.perform_action(self,action,params)
-
-        if action=='image_a_day':
-            self.image_a_day(params)
-
-
-    def image_a_day(self,params):
+    def photo_a_day(self,params):
         """
         Tweets an image a day,
         at 8 o'clock or so.
@@ -88,7 +90,7 @@ class PhotoADaySheep(rmm.Sheep):
         # --------------------------
         # Start The Calendar
 
-        remcycle = 60*60*2
+        remcycle = 5
 
         prior_dd = 0
         while True:
@@ -96,14 +98,15 @@ class PhotoADaySheep(rmm.Sheep):
             try:
 
                 # Repopulate in case there are changes
-                twit_images = populate_queue()
+                twit_images = self.populate_queue(tweet_params)
         
-                yy, mm, dd, hh, mm, _, _ = datetime.now()[0,1,2]
+                now = datetime.now()
+                yy, mm, dd, hh, mm = (now.year, now.month, now.day, now.hour, now.minute)
 
                 if(abs(dd-prior_dd)>0 and hh>8):
 
                     # Index = days since beginning of year
-                    index = (datime.now() - datetime(yy,1,1,0,0,0)).days
+                    index = (datetime.now() - datetime(yy,1,1,0,0,0)).days
 
                     # If there is a photo for this date,
                     if(index < len(twit_images)):
@@ -115,7 +118,7 @@ class PhotoADaySheep(rmm.Sheep):
 
                         # Upload image 
                         if(tweet_params['upload']):
-                            img_info = upload_image_to_twitter(tweet_params)
+                            img_info = self.upload_image_to_twitter(tweet_params)
 
                         if(tweet_params['upload'] and tweet_params['publish']):
                             _tweet(img_info)
@@ -135,8 +138,14 @@ class PhotoADaySheep(rmm.Sheep):
                 # oops!
 
                 msg1 = self.timestamp_message("Sheep encountered an exception. More info:")
-                msg2 = self.timestamp_message(traceback.format_exc())
+                # Fix this:
+                msg2 = self.timestamp_message(str(err))
                 msg3 = self.timestamp_message("Sheep is continuing...")
+
+
+                # For debugging:
+                raise Exception(err)
+
 
                 logging.info(msg1)
                 logging.info(msg2)
