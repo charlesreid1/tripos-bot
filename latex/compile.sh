@@ -2,12 +2,14 @@
 #
 # Run this script two ways:
 
+GREP="/usr/bin/grep"
+GREP="/bin/grep"
 
 
 if [[ -n "$1" ]]; then
-    texfiles="`/bin/ls -1 $1.tex | /usr/bin/grep -v template`"
+    texfiles="`/bin/ls -1 $1.tex | $GREP -v template`"
 else
-    texfiles="`/bin/ls -1 *.tex | /usr/bin/grep -v template`"
+    texfiles="`/bin/ls -1 *.tex | $GREP -v template`"
 fi
 
 echo $texfiles
