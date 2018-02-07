@@ -13,8 +13,9 @@ def run():
     sh = rmm.Shepherd('keys/',sheep_class=PhotoADaySheep)
 
     sh.perform_action('photo_a_day',{
-                        'publish':False,
-                        'images_dir':'latex'
+                      'upload':True,
+                      'publish':True,
+                      'images_dir':'latex'
                     })
 
 if __name__=="__main__":
