@@ -91,7 +91,7 @@ class PhotoADaySheep(rmm.MediaSheep):
         # --------------------------
         # Start The Calendar
 
-        remcycle = 5
+        remcycle = 3600
 
         prior_dd = 0
         while True:
@@ -130,6 +130,8 @@ class PhotoADaySheep(rmm.MediaSheep):
                                         'media_ids': img_info['media_id_string']
                                     }
                             self._tweet(twit)
+                            msg = self.timestamp_message(">>> Twitted a twit...")
+                            logging.info(msg)
                         else:
                             self._print("Testing image tweet: %s"%(tweet_params['image_file']))
 
@@ -150,14 +152,12 @@ class PhotoADaySheep(rmm.MediaSheep):
                 msg2 = self.timestamp_message(str(err))
                 msg3 = self.timestamp_message("Sheep is continuing...")
 
-
-                # For debugging:
-                raise Exception(err)
-
-
                 logging.info(msg1)
                 logging.info(msg2)
                 logging.info(msg3)
+
+                # For debugging:
+                raise Exception(err)
 
                 time.sleep(remcycle)
 
