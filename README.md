@@ -2,19 +2,20 @@
 
 [math tripos bot on twitter](https://twitter.com/math_tripos)
 
-TODO: add project web page
-
-This bot uses [rainbow mind machine](http://github.com/charlesreid1/rainbow-mind-machine), 
-a library I wrote to run Twitter bot flocks.
+The Math Tripos Bot Flock is a (singleton) flock of (one) Twitter bots 
+tweeting a daily photo of a LaTeX-rendered question from Cambridge 
+University's Mathematical Tripos. (Most questions come from G. H. Hardy's
+_A Course of Pure Mathematics_.)
 
 `bot/` contains the code for the Math Tripos Bot Flock.
 
+(TODO) `pelican/` contains the Pelican files used to generate 
+[the project web page](http://charlesreid1.github.io/math_tripos).
 
+(TODO) See [the project web page](http://charlesreid1.github.io/math_tripos) for more information,
+or browse through the code.
 
-## What Is It
-
-Bot tweeting a daily photo of a LaTeX-rendered math question 
-from Cambridge's Mathematical Tripos.
+## List of Bot Accounts
 
 [@math_tripos](https://twitter.com/math_tripos)
 
