@@ -1,0 +1,17 @@
+version: "3.1"
+services:
+
+  stormy_tripos:
+    build: . 
+    # ---------------
+    # Comment these two lines out
+    # after the first run, when the 
+    # api keys are all set up.
+    stdin_open: true
+    tty: true
+    # ---------------
+    volumes:
+      - "./bot/apikeys.py:/tripos/bot/apikeys.py"
+      - "./bot/keys:/tripos/bot/keys"
+      - "./bot/latex:/tripos/bot/latex"
+
