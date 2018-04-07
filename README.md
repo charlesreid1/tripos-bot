@@ -53,12 +53,17 @@ external files used to initialize each bot.
 For example:
 
 ```
-b-tripos/
-        MathTriposBot.py
-        apikeys.py
-        keys/
-            math_tripos.json
+bot/
+    MathTriposBot.py
+    apikeys.py
+    latex/
+        ...
+    keys/
+        math_tripos.json
 ```
+
+While you can put the keys anywhere you'd like,
+this is the recommended layout.
 
 ## Where Do I Put My apikeys.py
 
@@ -74,11 +79,13 @@ consumer_secret_token = 'BBBBBBBBBBBBBB'
 The file `apikey.py` should go next to `MathTriposBot.py`:
 
 ```
-b-tripos/
-        MathTriposBot.py
-        apikeys.py
-        keys/
-            math_tripos.json
+bot/
+    MathTriposBot.py
+    apikeys.py
+    latex/
+        ...
+    keys/
+        math_tripos.json
 ```
 
 ## Running The Bot Flock
@@ -106,17 +113,18 @@ To run the bot flock using docker, use the Dockerfile
 contained in this directory to build the container:
 
 ```
-$ docker build -t apollobotflock .
+$ docker build -t triposbotflock .
 ```
 
 Now you can run the container:
 
 ```
 $ doker run -d \
-    --name stormy_apollo_singleton \
-    -v ${PWD}/bot/apikeys.py:/apollo/bot/apikeys.py \
-    -v ${PWD}/bot/keys:/apollo/bot/keys \
-    apollobotflock
+    --name stormy_tripos_singleton \
+    -v ${PWD}/bot/apikeys.py:/tripos/bot/apikeys.py \
+    -v ${PWD}/bot/keys:/tripos/bot/keys \
+    -v ${PWD}/bot/latex:/tripos/bot/latex \
+    triposbotflock
 ```
 
 (hopefully that's right, but in any case, just use docker-compose.)
@@ -126,6 +134,10 @@ The container should be run interactively the first time through
 so you can set up the keys. The keys will live next to the bot program
 and `apikeys.py file`, in a folder called `keys/` containing one json file
 per bot account.
+
+This bot also needs 365 LaTeX files (one for each day) and a script
+to compile these LaTeX files into images. The directory containing
+LaTeX and rendered images is `latex/`. It is bind-mounted into the directory.
 
 On first run, the bot container will detect that there are no keys and 
 run the interactive part of the script (Keymaker).
@@ -152,11 +164,11 @@ $ docker-compose --no-cache
 ```
 
 First, to run the container interactively,
-modify the docker-compose service `apollo_botflock`
+modify the docker-compose service `tripos_botflock`
 to include `stdin_open: true` and `tty: true`:
 
 ```
-  stormy_apollo:
+  stormy_tripos:
     build: . 
     # ---------------
     # Only include these two lines 
@@ -170,7 +182,7 @@ Note, if you need an interactive shell, you can
 set the entrypoint variable to `/bin/bash`:
 
 ```
-  ginsberg_botflock:
+  stormy_tripos:
     build: . 
     # ---------------
     # fully interactive container
@@ -188,7 +200,7 @@ interactive, run the container using `docker-compose run <service-name>`
 (do not use `up`!):
 
 ```
-$ docker-compose run stormy_apollo
+$ docker-compose run stormy_tripos
 ```
 
 This will run the entrypoint script, install 
