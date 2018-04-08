@@ -5,8 +5,8 @@ DATADIR = os.path.join(os.getcwd(), 'latex')
 KEYSDIR = os.path.join(os.getcwd(), 'keys')
 
 def setup():
-    k = rmm.TxtKeymaker()
-    k.make_keys(DATADIR, KEYSDIR)
+    k = rmm.Keymaker()
+    k.make_keys([0], KEYSDIR) # the "item" for our only bot is 0
 
 def run():
     sh = rmm.Shepherd(KEYSDIR, 
@@ -21,14 +21,16 @@ def run():
         sh.perform_pool_action('tweet',{
                       'upload'  : False,
                       'publish' : False,
-                      'images_dir' : DATADIR
+                      'images_dir' : DATADIR,
+                      'images_template' : '{i}.jpg'
         })
 
     else:
         sh.perform_pool_action('tweet',{
                       'upload'  : True,
                       'publish' : True,
-                      'images_dir' : DATADIR
+                      'images_dir' : DATADIR,
+                      'images_template' : '{i}.jpg'
         })
 
 
