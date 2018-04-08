@@ -6,7 +6,10 @@ KEYSDIR = os.path.join(os.getcwd(), 'keys')
 
 def setup():
     k = rmm.Keymaker()
-    k.make_keys([0], KEYSDIR) # the "item" for our only bot is 0
+    k.make_a_key( {
+            'name' : 'math_tripos',
+            'json' : 'math_tripos.json'
+    })
 
 def run():
     sh = rmm.Shepherd(KEYSDIR, 
