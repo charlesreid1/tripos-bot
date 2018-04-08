@@ -3,7 +3,7 @@
 # Run this script two ways:
 
 GREP="/usr/bin/grep"
-GREP="/bin/grep"
+#GREP="/bin/grep"
 
 
 if [[ -n "$1" ]]; then
@@ -29,28 +29,32 @@ for texfile in $texfiles; do
 
     echo "Processing $texfile"
 
-    cp template.tex $tmpfile
-    sed -i "s/FILENAME/$texfile/g" $tmpfile 
+    if [ ! -f $jpgfile ]; then
 
-    # latex to pdf
-    pdflatex \
-        -interaction nonstopmode \
-        -halt-on-error \
-        $tmpfile $pdffile \
-        && rm -f $auxfile $logfile
+        cp template.tex $tmpfile
+        sed -i "s/FILENAME/$texfile/g" $tmpfile 
 
-    # pdf to image
-    convert            \
-        -verbose       \
-        -density 500   \
-        -trim          \
-             $pdffile  \
-        -quality 100   \
-        -flatten       \
-        -sharpen 0x1.0 \
-             $jpgfile
+        # latex to pdf
+        pdflatex \
+            -interaction nonstopmode \
+            -halt-on-error \
+            $tmpfile $pdffile \
+            && rm -f $auxfile $logfile
 
-    rm -f $tmpfile 
-    rm -f $pdffile
+        # pdf to image
+        convert            \
+            -verbose       \
+            -density 500   \
+            -trim          \
+                 $pdffile  \
+            -quality 100   \
+            -flatten       \
+            -sharpen 0x1.0 \
+                 $jpgfile
+
+        rm -f $tmpfile 
+        rm -f $pdffile
+
+    fi
 
 done
