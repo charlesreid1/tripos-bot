@@ -24,6 +24,12 @@ or browse through the code.
 This bot flock utilizes [rainbow-mind-machine](https://github.com/charlesreid1/rainbow-mind-machine),
 the extensible bot flock framework authored by yours truly.
 
+This bot also requires LaTeX to render mathematical equations
+as images. This should be as simple as `apt-get install latex` 
+or some such nonsense.
+
+::sad trombone::
+
 ## Required Twitter Setup
 
 You will need to set up some Twitter accounts for your bots, obviously.
@@ -86,6 +92,17 @@ bot/
         ...
     keys/
         math_tripos.json
+```
+
+## Before You Run The Bot Flock
+
+Before running the bot flock, you must compile the latex 
+into equation images:
+
+```
+cd bot/
+cd latex/
+./compile.sh
 ```
 
 ## Running The Bot Flock
