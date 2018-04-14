@@ -2,9 +2,21 @@
 #
 # Run this script two ways:
 
-GREP="/usr/bin/grep"
+GREP="`which grep`"
 #GREP="/bin/grep"
 
+
+if [[ "`which pdflatex`" -eq "" ]]; then
+    echo "You do not appear to have pdflatex installed."
+    echo "Aborting..."
+    exit 1;
+fi
+
+if [[ "`which convert`" -eq "" ]]; then
+    echo "You do not appear to have pdflatex installed."
+    echo "Aborting..."
+    exit 1;
+fi
 
 if [[ -n "$1" ]]; then
     texfiles="`/bin/ls -1 $1.tex | $GREP -v template`"
