@@ -2,3 +2,5 @@ rainbowmindmachine.log
 keys/
 *.jpg
 apikeys.py
+*.aux
+*.log
