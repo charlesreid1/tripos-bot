@@ -21,19 +21,19 @@ def run():
 
 
     if not LIVE:
-        sh.perform_pool_action('tweet',{
+        sh.perform_pool_action('photo_a_day',{
                       'upload'  : False,
                       'publish' : False,
                       'images_dir' : DATADIR,
-                      'images_template' : '{i}.jpg'
+                      'images_pattern' : '{i:03}.jpg'
         })
 
     else:
-        sh.perform_pool_action('tweet',{
+        sh.perform_pool_action('photo_a_day',{
                       'upload'  : True,
                       'publish' : True,
                       'images_dir' : DATADIR,
-                      'images_template' : '{i}.jpg'
+                      'images_pattern' : '{i:03}.jpg'
         })
 
 
