@@ -9,7 +9,7 @@ GREP="`which grep`"
 if [[ "`which pdflatex`" -eq "" ]]; then
     echo "You do not appear to have pdflatex installed."
     echo "Try running:"
-    echo "          apt-get -y install texlive"
+    echo "          apt-get -y install texlive-latex-base texlive-latex-extra"
     echo "Aborting..."
     exit 1;
 fi
