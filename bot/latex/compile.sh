@@ -8,12 +8,16 @@ GREP="`which grep`"
 
 if [[ "`which pdflatex`" -eq "" ]]; then
     echo "You do not appear to have pdflatex installed."
+    echo "Try running:"
+    echo "          apt-get -y install texlive"
     echo "Aborting..."
     exit 1;
 fi
 
 if [[ "`which convert`" -eq "" ]]; then
-    echo "You do not appear to have pdflatex installed."
+    echo "You do not appear to have imagemagick installed."
+    echo "Try running:"
+    echo "          apt-get -y install imagemagick"
     echo "Aborting..."
     exit 1;
 fi
