@@ -17,7 +17,7 @@ def run():
                       sheep_class = rmm.PhotoADaySheep)
 
 
-    LIVE = False
+    LIVE = True
 
 
     if not LIVE:
