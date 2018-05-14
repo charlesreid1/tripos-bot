@@ -30,6 +30,9 @@ or some such nonsense.
 
 ::sad trombone::
 
+(Acually, you should not waste the space; render the images
+and add the pngs directly to the repository.)
+
 ## Required Twitter Setup
 
 You will need to set up some Twitter accounts for your bots, obviously.
