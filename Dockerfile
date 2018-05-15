@@ -1,6 +1,6 @@
 ## This container defines a base rainbow mind machine image.
 ## This base container image is used to build other twitter bots.
-FROM rainbowmindmachine/rainbowmindmachine
+FROM rainbowmindmachine/rainbowmindmachine:latest
 
 ####################################################
 ## remove this once rainbow mind machine is okay
