@@ -25,7 +25,8 @@ def run():
                       'upload'  : False,
                       'publish' : False,
                       'images_dir' : DATADIR,
-                      'images_pattern' : '{i:03}.jpg'
+                      'images_pattern' : '{i:03}.jpg',
+                      'message' : 'Your daily Mathematical Tripos question.'
         })
 
     else:
@@ -33,7 +34,8 @@ def run():
                       'upload'  : True,
                       'publish' : True,
                       'images_dir' : DATADIR,
-                      'images_pattern' : '{i:03}.jpg'
+                      'images_pattern' : '{i:03}.jpg',
+                      'message' : 'Your daily Mathematical Tripos question.'
         })
 
 
