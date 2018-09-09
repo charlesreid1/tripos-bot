@@ -1,42 +1,55 @@
 import rainbowmindmachine as rmm
 import os, glob
+import logging
+
+ch = logging.StreamHandler()
+logger = logging.getLogger('')
+logger.setLevel(logging.INFO)
+logger.addHandler(ch)
 
 DATADIR = os.path.join(os.getcwd(), 'latex')
 KEYSDIR = os.path.join(os.getcwd(), 'keys')
 
 def setup():
     k = rmm.Keymaker()
+    k.set_apikeys_file('apikeys.json')
     k.make_a_key( {
             'name' : 'math_tripos',
             'json' : 'math_tripos.json'
     })
 
 def run():
-    sh = rmm.Shepherd(KEYSDIR, 
-                      flock_name = 'math_tripos',
-                      sheep_class = rmm.PhotoADaySheep)
+    sh = rmm.TwitterShepherd(
+            KEYSDIR, 
+            flock_name = 'math_tripos',
+            sheep_class = rmm.PhotoADaySheep
+    )
 
 
-    LIVE = True
+    LIVE = False
 
 
     if not LIVE:
-        sh.perform_pool_action('photo_a_day',{
-                      'upload'  : False,
-                      'publish' : False,
-                      'images_dir' : DATADIR,
-                      'images_pattern' : '{i:03}.jpg',
-                      'message' : 'Your daily Mathematical Tripos question.'
-        })
+        sh.perform_parallel_action(
+                'photo_a_day',
+                **{
+                    'publish' : False,
+                    'images_dir' : DATADIR,
+                    'images_pattern' : '{i:03}.jpg',
+                    'message' : 'Your daily Mathematical Tripos question.'
+                }
+        )
 
     else:
-        sh.perform_pool_action('photo_a_day',{
-                      'upload'  : True,
-                      'publish' : True,
-                      'images_dir' : DATADIR,
-                      'images_pattern' : '{i:03}.jpg',
-                      'message' : 'Your daily Mathematical Tripos question.'
-        })
+        sh.perform_parallel_action(
+                'photo_a_day',
+                **{
+                    'publish' : True,
+                    'images_dir' : DATADIR,
+                    'images_pattern' : '{i:03}.jpg',
+                    'message' : 'Your daily Mathematical Tripos question.'
+                }
+        )
 
 
 if __name__=="__main__":
