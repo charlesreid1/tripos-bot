@@ -11,7 +11,5 @@ services:
     tty: true
     # ---------------
     volumes:
-      - "./bot/apikeys.py:/tripos/bot/apikeys.py"
-      - "./bot/keys:/tripos/bot/keys"
-      - "./bot/latex:/tripos/bot/latex"
+      - "./bot:/tripos/bot"
 
