@@ -7,6 +7,10 @@ logger = logging.getLogger('')
 logger.setLevel(logging.INFO)
 logger.addHandler(ch)
 
+fh = logging.FileHandler(filename='rmm_tripos.log')
+fh.setLevel(logging.INFO)
+logger.addHandler(fh)
+
 DATADIR = os.path.join(os.getcwd(), 'latex')
 KEYSDIR = os.path.join(os.getcwd(), 'keys')
 
