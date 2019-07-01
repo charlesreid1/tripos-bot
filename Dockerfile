@@ -1,5 +1,4 @@
-FROM rainbowmindmachine/rainbowmindmachine:stable
-
+FROM rainbowmindmachine/rainbowmindmachine:v23
 MAINTAINER charles@charlesreid1.com
 
 RUN git clone https://git.charlesreid1.com/bots/b-tripos.git /tripos
