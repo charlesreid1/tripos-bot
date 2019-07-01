@@ -2,25 +2,25 @@
 #
 # Run this script two ways:
 
-GREP="`which grep`"
-#GREP="/bin/grep"
+#GREP="`which grep`"
+GREP="/bin/grep"
 
 
-if [[ "`which pdflatex`" -eq "" ]]; then
-    echo "You do not appear to have pdflatex installed."
-    echo "Try running:"
-    echo "          apt-get -y install texlive-latex-base texlive-latex-extra"
-    echo "Aborting..."
-    exit 1;
-fi
-
-if [[ "`which convert`" -eq "" ]]; then
-    echo "You do not appear to have imagemagick installed."
-    echo "Try running:"
-    echo "          apt-get -y install imagemagick"
-    echo "Aborting..."
-    exit 1;
-fi
+### if [[ "`which pdflatex`" -eq "" ]]; then
+###     echo "You do not appear to have pdflatex installed."
+###     echo "Try running:"
+###     echo "          apt-get -y install texlive-latex-base texlive-latex-extra"
+###     echo "Aborting..."
+###     exit 1;
+### fi
+### 
+### if [[ "`which convert`" -eq "" ]]; then
+###     echo "You do not appear to have imagemagick installed."
+###     echo "Try running:"
+###     echo "          apt-get -y install imagemagick"
+###     echo "Aborting..."
+###     exit 1;
+### fi
 
 if [[ -n "$1" ]]; then
     texfiles="`/bin/ls -1 $1.tex | $GREP -v template`"
@@ -28,8 +28,7 @@ else
     texfiles="`/bin/ls -1 *.tex | $GREP -v template`"
 fi
 
-echo $texfiles
-
+dunn=0
 for texfile in $texfiles; do
 
     # Procedure:
@@ -72,5 +71,12 @@ for texfile in $texfiles; do
         rm -f $pdffile
 
     fi
+
+    dunn=$((dunn+1))
+
+    # Stop early
+    ### if (( dunn > 5 )); then
+    ###     break
+    ### fi
 
 done
