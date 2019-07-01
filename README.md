@@ -25,13 +25,19 @@ This bot flock utilizes [rainbow-mind-machine](https://github.com/charlesreid1/r
 the extensible bot flock framework authored by yours truly.
 
 This bot also requires LaTeX to render mathematical equations
-as images. This should be as simple as `apt-get install latex` 
+as images. This should be as simple as:
+
+```
+apt-get -y install texlive-latex-base texlive-latex-extra
+```
+
 or some such nonsense.
 
 ::sad trombone::
 
-(Acually, you should not waste the space; render the images
-and add the pngs directly to the repository.)
+This would not be necessary if I was wasteful of space and
+added all the images (instead of the latex) to the repository,
+but why do things the easy way.
 
 ## Required Twitter Setup
 
