@@ -15,16 +15,17 @@ DATADIR = os.path.join(os.getcwd(), 'latex')
 KEYSDIR = os.path.join(os.getcwd(), 'keys')
 
 def setup():
-    k = rmm.Keymaker()
+    k = rmm.TwitterKeymaker()
     k.set_apikeys_file('apikeys.json')
-    k.make_a_key( {
+    k.make_a_key( **{
             'name' : 'math_tripos',
-            'json' : 'math_tripos.json'
+            'json_target' : 'math_tripos.json',
+            'keys_out_dir' : KEYSDIR
     })
 
 def run():
     sh = rmm.TwitterShepherd(
-            KEYSDIR, 
+            json_keys_dir = KEYSDIR, 
             flock_name = 'math_tripos',
             sheep_class = rmm.PhotoADaySheep
     )
