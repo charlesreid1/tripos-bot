@@ -28,7 +28,7 @@ This bot also requires LaTeX to render mathematical equations
 as images. This should be as simple as:
 
 ```
-apt-get -y install texlive-latex-base texlive-latex-extra
+apt-get -y install texlive-latex-base texlive-latex-extra imagemagick
 ```
 
 or some such nonsense.
